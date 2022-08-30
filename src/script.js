@@ -8,6 +8,9 @@ const loader = document.getElementsByClassName('loader')
 
 let photoArray = [];
 
+function imageLoaded(){
+    console.log('image loaded')
+}
 
 function set_Attributes(element,attributes){
 for(const key in attributes){
@@ -32,7 +35,7 @@ function displayPhotos() {
             alt:photo.alt_description,
             title:photo.alt_description
         })
-
+        image.addEventListener('load'. imageLoaded)
         item.appendChild(image)
         imageContainer.appendChild(item)
     })
@@ -54,7 +57,10 @@ async function getPhotos() {
 }
 
 window.addEventListener('scroll', () => {
-    console.log(window.innerHeight,window.scrollY)
+    if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000){
+        getPhotos()
+        console.log('load more')
+    }
 })
 
 //on Load
